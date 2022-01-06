@@ -8,10 +8,10 @@ import {
 import { NextFunction } from 'express';
 import { FileDTO } from '../interfaces/file.interface';
 import * as jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
 import { AppService } from '../app.service';
-import { config } from 'dotenv';
 import { User } from '../interfaces/file.interface';
-config();
+dotenv.config();
 @Injectable()
 export class SetValueMiddleware implements NestMiddleware {
   constructor(private appService: AppService) {}
