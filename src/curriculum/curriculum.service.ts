@@ -8,13 +8,16 @@ export class CurriculumService {
   public file!: File;
 
   create(body: FileDTO, path: string, fileName: string): string {
+    const today = new Date();
     this.file = {
       name: body.name,
       version: body.version,
       description: body.description,
       path,
       fileName,
-      createdAt: Date.now().toLocaleString(),
+      createdAt: `${today.getDate()}/${
+        today.getMonth() + 1
+      }/${today.getFullYear()}`,
     };
     fs.writeFileSync('./file/info.json', JSON.stringify(this.file));
     console.log(this.file);

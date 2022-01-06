@@ -10,6 +10,8 @@ import { CurriculumModule } from './curriculum/curriculum.module';
 import { SetValueMiddleware } from './middleware/set-value.middleware';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ControllersController } from './usuario/controllers.controller';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [CurriculumModule, UsuarioModule],

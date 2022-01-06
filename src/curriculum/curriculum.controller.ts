@@ -23,7 +23,7 @@ import { diskStorage } from 'multer';
 import { create } from 'domain';
 import { AppService } from '../app.service';
 import { File, FileDTO } from '../interfaces/file.interface';
-import { join } from 'path';
+import { join, extname } from 'path';
 
 @Controller('curriculum')
 export class CurriculumController {
@@ -33,7 +33,7 @@ export class CurriculumController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination: './file',
+        destination: './file/cv',
         filename: function (req, file, cb) {
           console.log(req.body);
           const deletePath: File = JSON.parse(
@@ -47,6 +47,14 @@ export class CurriculumController {
           cb(null, 'cv-' + req.body.version + '-' + file.originalname);
         },
       }),
+      fileFilter: function (req, file, callback) {
+        const ext = extname(file.originalname);
+        console.log(ext);
+        if (ext !== '.pdf') {
+          return callback(new Error('Only images are allowed'), false);
+        }
+        callback(null, true);
+      },
     }),
   )
   async upload(
@@ -71,7 +79,9 @@ export class CurriculumController {
   downloadFile(@Response({ passthrough: true }) res): StreamableFile {
     const { fileName, path } = this.appService.readFile();
     console.log(fileName);
-    const file = fs.createReadStream(join(process.cwd(), 'file', fileName));
+    const file = fs.createReadStream(
+      join(process.cwd(), 'file', 'cv', fileName),
+    );
     res.set({
       'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename="${fileName}"`,
