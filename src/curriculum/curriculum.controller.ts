@@ -36,13 +36,17 @@ export class CurriculumController {
         destination: './file/cv',
         filename: function (req, file, cb) {
           console.log(req.body);
-          const deletePath: File = JSON.parse(
-            fs.readFileSync('./file/info.json', 'utf-8'),
-          );
-          if (fs.existsSync(deletePath.path)) {
-            fs.unlinkSync(deletePath.path);
-          } else {
-            console.log('No se pudo encontrar');
+          const exist = fs.existsSync('.file/info.json');
+
+          if (exist) {
+            const deletePath: File = JSON.parse(
+              fs.readFileSync('./file/info.json', 'utf-8'),
+            );
+            if (fs.existsSync(deletePath.path)) {
+              fs.unlinkSync(deletePath.path);
+            } else {
+              console.log('No se pudo encontrar');
+            }
           }
           cb(null, 'cv-' + req.body.version + '-' + file.originalname);
         },
