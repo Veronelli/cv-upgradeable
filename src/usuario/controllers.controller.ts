@@ -1,5 +1,4 @@
 import { Body, Controller, Post, Request } from '@nestjs/common';
-import { User } from 'src/interfaces/file.interface';
 import { ServicesService } from './services.service';
 import * as jwt from 'jsonwebtoken';
 

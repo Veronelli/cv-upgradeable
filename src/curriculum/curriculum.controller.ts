@@ -22,7 +22,7 @@ import {
 import { diskStorage } from 'multer';
 import { create } from 'domain';
 import { AppService } from '../app.service';
-import { File, FileDTO } from '../interfaces/file.interface';
+import { IFile, FileDTO } from '../interfaces/file.interface';
 import { join, extname } from 'path';
 
 @Controller('curriculum')
@@ -39,7 +39,7 @@ export class CurriculumController {
           const exist = fs.existsSync('.file/info.json');
 
           if (exist) {
-            const deletePath: File = JSON.parse(
+            const deletePath: IFile = JSON.parse(
               fs.readFileSync('./file/info.json', 'utf-8'),
             );
             if (fs.existsSync(deletePath.path)) {

@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as fs from 'fs';
-import { FileDTO, File } from '../interfaces/file.interface';
+import { Repository } from 'typeorm';
+import { FileDTO, IFile } from '../interfaces/file.interface';
+import { File } from './file.entity';
 
 @Injectable()
 export class CurriculumService {
   fileData!: FileDTO;
-  public file!: File;
+  public file!: IFile;
+
+  constructor(
+    @Inject('FILE_REPOSITORY')
+    private fileRepository: Repository<File>,
+  ) {}
 
   create(body: FileDTO, path: string, fileName: string): string {
     const today = new Date();
@@ -24,7 +31,11 @@ export class CurriculumService {
     return 'New Curriculum created';
   }
 
-  readFile(): File {
+  async findAll(): Promise<File[]> {
+    return this.fileRepository.find();
+  }
+
+  readFile(): IFile {
     return JSON.parse(fs.readFileSync('./file/info.json', 'utf-8'));
   }
 }

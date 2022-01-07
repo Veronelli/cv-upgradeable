@@ -12,9 +12,11 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ControllersController } from './usuario/controllers.controller';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { databaseProviders } from './database/db.providers';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [CurriculumModule, UsuarioModule],
+  imports: [CurriculumModule, UsuarioModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

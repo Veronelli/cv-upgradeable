@@ -3,7 +3,7 @@ export interface FileDTO {
   version: string;
   description: string;
 }
-export interface File {
+export interface IFile {
   name: string;
   path?: string;
   version: string;

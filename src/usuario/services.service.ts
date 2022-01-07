@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/interfaces/file.interface';
 import * as bcrypt from 'bcrypt';
 import { promisify } from 'util';
 import { config } from 'dotenv';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
 import { AppService } from '../app.service';
+import { User } from 'src/interfaces/file.interface';
 
 config();
 @Injectable()
